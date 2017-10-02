@@ -1,0 +1,40 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Mr Delievery</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link th:href="@{/content/bootstrap.css}" rel="stylesheet" />
+    <link th:href="@{/content/bootstrap-theme.css}" rel="stylesheet" />
+    <link th:href="@{/content/font-awesome.css}" rel="stylesheet" />
+    <link th:href="@{/content/themes/base/jquery-ui.css}" rel="stylesheet" />
+    <link th:href="@{/content/app.css}" rel="stylesheet" />
+</head>
+<body ng-app="SampleApplication">
+    <div ng-view="">
+    </div>
+
+    <script th:src="@{/webjars/jquery/2.1.0/jquery.js}"></script>
+
+    <script th:src="@{/scripts/jquery-ui-1.10.4.js}"></script>
+    <script th:src="@{/scripts/underscore.js}"></script>
+    <script th:src="@{/scripts/angular.js}"></script>
+    <script th:src="@{/scripts/angular-resource.js}"></script>
+    <script th:src="@{/scripts/angular-route.js}"></script>
+    <script th:src="@{/scripts/ui-date.js}"></script>
+    <script th:src="@{/scripts/ui-bootstrap-0.10.0.js}"></script>
+
+    <script th:src="@{/app/app.js}"></script>
+    <script th:src="@{/app/common/common.js}"></script>
+    <script th:src="@{/app/angular/caching/cacheInterceptor.js}"></script>
+    <script th:src="@{/app/angular/data/data.js}"></script>
+    <script th:src="@{/app/angular/loader/loader.js}"></script>
+    <script th:src="@{/app/angular/loader/loader.directive.js}"></script>
+     <script th:src="@{/scripts/angular-storage.js}"></script>
+   <script type="text/javascript" th:inline="javascript">
+        var version = /*[[${version}]]*/ '0.0.0';
+        angular
+            .module('SampleApplication.Config', [])
+            .constant('SampleApplicationVersion', version);
+    </script>
+</body>
+</html>

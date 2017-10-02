@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>TODO supply a title</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body>
+                <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+                <!--<a class="navbar-brand" href="#">Mr D Food Delivery</a>-->
+        </div>
+        <div class="collapse navbar-collapse  navbar-right">
+            <ul class="nav navbar-nav">
+                <li><a ng-href="#/goToCart">Back</a></li>        
+            </ul>
+        </div>
+    </div>
+</div>
+         <div class="container">
+            <div class="well">
+                 <center><p><span><strong>Review Details</strong></span></p></center>
+           <center><p><span class="sub-title ng-binding">Order {{generatedOrderNumber}}</span></p></center>
+           
+                <div class="panel panel-default">
+                    <div class="panel-heading">Delivery Address</div>
+                    <div class="panel-body">
+                        <div class="form-group">
+                            <input type="text" class="form-control" id="usr" ng-model="address1" placeholder="Confirm Street Number..."/>
+                        </div>
+                        <div class="form-group">
+                            <label for="address1">{{address1}}</label>
+                        </div>
+                        <div class="form-group">
+                            <label for="address2">{{address2}}</label>
+                        </div>
+                        
+                         <div class="form-group">
+                            <label for="buildingType">Building Type</label>
+                                 <select ng-model="gae" ng-click="show()" ng-options="place for place in places">
+                                </select>
+                        </div>
+                        <div class="form-group" ng-hide="buildingTypeSpecific">
+                            
+                            <input type="text" class="form-control" id="deliveryInstruction" ng-model="buildingTypeSpec" placeholder="{{buidingTypeMessage}}">
+                        </div>
+                        <div class="form-group">
+                            <label for="deliveryInstruction">Delivery Instruction</label>
+                            <input type="text" class="form-control" id="deliveryInstruction" ng-model="deliveryInstruction">
+                        </div>
+                     </div>
+                </div>
+        
+        
+                <div class="panel panel-default">
+                    <div class="panel-heading">Save this address...</div>
+                    <div class="panel-body">
+                        <div class="form-group">
+                            <label for="couch" ng-click = "saveAddress()">My Couch</label>
+                        </div>
+                        <div class="form-group">
+                            <label for="address2"  ng-click = "saveAddress()">My Desk</label>
+                        </div>
+                         <div class="form-group">
+                            <label for="address2"  ng-click = "saveAddress()">My Second Home</label>
+                        </div>
+                        <div class="form-group">
+                            <label for="address2">Don't Save</label>
+                        </div>
+                    </div>
+                </div>
+                
+                 <div class="panel panel-default">
+                    <div class="panel-heading">Contact Details</div>
+                    <div class="panel-body">
+                         <div class="form-group">
+                            <label for="firstName">{{personDetail.firstName}}</label>
+                        </div>
+                        <div class="form-group">
+                            <label for="phoneNumber">{{personDetail.mobileNumber}}</label>
+                        </div>
+                        
+                         <div class="form-group">
+                            <input type="text" class="form-control" id="deliveryInstruction" placeholder="Alternative Number">
+                        </div>
+                    </div>
+                </div>
+                
+                
+                 <div class="panel panel-default">
+                    <div class="panel-heading">Payment Method</div>
+                    <div class="panel-body">
+                            <div class="form-group" ng-hide="paymentSelection" >
+                                <label ng-repeat="payment in payments" for="{{payment}}">{{payment}}
+                                  <input type="radio"
+                                    ng-model="customerPayment.favorite"
+                                    ng-change="paymentType(customerPayment.favorite)"
+                                     ng-value="payment"
+                                      id="{{payment}}"
+                                     name="favorite">
+                                    </label>
+                            </div>
+                            <p>{{paymentMessage}}</p>
+                    </div>
+                </div>
+                
+                 <div class="panel panel-default" ng-hide="waiterTip">
+                    <div class="panel-heading">Waiter Tip</div>
+                    <div class="panel-body">
+                        <div class="form-group">
+                                <label ng-repeat="tip in tips" for="{{tip}}">{{tip}}
+                                  <input type="radio"
+                                    ng-model="customertip.favorite"
+                                    ng-click="tipTake(customertip.favorite)"
+                                    ng-change="tipChoosen(customertip.favorite)"
+                                     ng-value="tip"
+                                      id="{{tip}}"
+                                     name="favorite">
+                                    </label>
+                        </div>
+                        <p>{{tipMessage}}</p>
+                    </div>
+                </div>
+                <div class="panel panel-default">
+                    <div class="panel-heading"></div>
+                    <div class="panel-body">
+                        <p>Food Total : {{foodTotal | currency : 'R'}}</p>
+                        <p ng-hide="serviceFeeDisplay">Service Fee : {{serviceFee | currency : 'R'}}</p>
+                        <p ng-hide="giveWaiterTip">Waiter Tip {{flowTip | currency : 'R'}}</p>
+                        <p>Total : {{total + flowTip| currency : 'R'}} </p>
+                    </div>
+                </div>
+                
+                <center><button type="button" class="btn btn-default" ng-click="moveToPayment(buttonName)">{{buttonName}}</button></center>
+            </div>
+        </div>
+    </body>
+</html>

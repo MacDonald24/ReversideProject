@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>TODO supply a title</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+          <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <style>
+     #header_view {
+    height: 200px;
+    width: 100%;
+    position: relative;
+    z-index: 1;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+    background-position: center center;
+} 
+      
+   </style>
+    </head>
+    <body>
+        <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+                <!--<a class="navbar-brand" href="#">Mr D Food Delivery</a>-->
+        </div>
+        <div class="collapse navbar-collapse  navbar-right">
+            <ul class="nav navbar-nav">
+                <li><a ng-href="#/viewRestaurant">Back To Restaurant</a></li>        
+            </ul>
+        </div>
+    </div>
+</div>
+        <div class ="container" >    
+            <img id="header_view" src={{restaurantInfo.image}} class="img-fluid" alt="Responsive image" >
+            <p>{{restaurantInfo.name}}</p>
+        </div>
+        <div class ="container" >    
+           <center><h4>Menu</h4></center>
+        </div>
+         <div class ="container"  >
+            <div class="row">
+                <div class="col-sm-6" ng-repeat="category in categoriesInfo" >
+                    <p>{{category.name}}</p>
+                        <ul class="list-group"  ng-repeat="items in itemsInfo | filter : category.categoryId" >   
+                            <li class="list-group-item" ng-repeat="item in items " data-toggle="modal" data-target="#myModal" ng-click="addItemToCart(item)">
+                               {{item.name}}
+                            </li>
+                            
+                        </ul>
+                </div> 
+            </div>
+         </div>
+
+  <!-- Modal -->
+  <div class="modal fade" id="myModal" role="dialog" ng-controller ="menuController">
+    <div class="modal-dialog">
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Modal Header</h4>
+        </div>
+        <div class="modal-body">
+          <p>{{item.name}}</p>
+          <p>{{item.shortDescription}}</p>
+          <p>{{item.price | currency : "R"}}</p>
+          
+        </div>
+        <div class="modal-footer">
+            <p>
+               {{item.price * quantity | currency : "R"}}
+            </p>
+            <p>
+                 <label>{{quantity}} Item(s)</label> <br/>
+            </p>
+            <p>
+                 <label>{{quantity}} Quantity</label> <br/>
+            </p>
+           <p>
+               <button type="button" class="btn btn-default" ng-click="increase(item)">Increase</button>
+               <button type="button" class="btn btn-default"  ng-click="decrease()">Decrease</button>
+           </p>
+            <p>
+                <button type="button" class="btn btn-default"  ng-click="displayGoToCart()" data-dismiss="modal">Add To Cart</button>
+            </p>
+          
+        </div>
+      </div>
+      
+    </div>
+    </div>
+  
+  <div class="container" >
+       <button type="button" class="btn btn-default"  ng-click="goToCart()" >Go To Cart</button>
+  </div>
+    </body>
+</html>

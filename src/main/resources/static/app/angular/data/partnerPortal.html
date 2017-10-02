@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html>
+    <body>
+   ﻿<div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+            <div class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                        <a class="navbar-brand" href="#/home">Mr D Food Delivery</a>
+                </div>
+                <div class="collapse navbar-collapse  navbar-right">
+                    <ul class="nav navbar-nav">
+                            <li><a ng-href="#/home" ng-click="logout()">Logout</a></li>
+                      
+                    </ul>
+                </div>
+            </div>
+        </div>
+   <div class="container">
+        <div class="well">
+            <div>
+                    <h4 style="color:#4A96AD">Partner Account Information</h4>
+                        <table class="table table-bordered">
+                            <tbody>
+                                <tr>
+                                  <td><label>FirtName:</label>{{partnerInfo.firstName}}</td>
+                                  <td><label>LastName:</label>{{partnerInfo.lastName}}</td>
+                                </tr>
+                                <tr>
+                                  <td><label>Phone No:</label>{{partnerInfo.mobileNumber}}</td>
+                                  <td><label>Email:</label>{{partnerInfo.email}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+            </div> 
+	</div>
+    </div>
+   <div class="container">
+        <div class="well">
+            <h4 style="color:#4A96AD">Create Restaurant</h4>
+            <form>
+                <div class="form-group row">
+                  <label for="name" class="col-sm-2 col-form-label">Restaurant Name</label>
+                  <div class="col-md-4">
+                      <input type="text" class="form-control" id="inputEmail3" placeholder="Restaurant Name" ng-model="restaurantName">
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <label for="Address" class="col-sm-2 col-form-label">Address</label>
+                  <div class="col-md-4">
+                    <input type="text" class="form-control" id="inputAddress" placeholder="Address" ng-model="address">
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <label for="image" class="col-sm-2 col-form-label">Image</label>
+                  <div class="col-md-4">
+                      <label for="filePicker">Upload Photo of the Restaurant</label><br>
+
+                          <input type="file" id="filePickerImage" ng-model="filePickerImage" accept="image/png"  />
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="AddRestaurant" class="col-sm-2 col-form-label"></label>
+                          <button type="submit" class="btn btn-default" ng-click="addRestaurant()" >Add Restaurant</button>
+                </div>
+            </form>
+        </div>
+    </div>
+   
+  <div class = "container">
+        <div class="well">
+            <h4 style="color:#4A96AD">Insert Restaurant Menu Categories</h4>
+            <form class="form-inline">
+                    <div class="form-group">
+                      <label for="categoryName">Category Name:</label>
+                      <input type="text" class="form-control" id="categoryName" placeholder="Category Name" ng-model="categoryName">
+                    </div>
+                <button type="submit" class="btn btn-default" ng-click="addCategory()">Add Category</button>
+            </form>
+        </div>
+  </div>
+   
+   <div class = "container">
+        <div class="well">
+             <h4 style="color:#4A96AD">Insert Restaurant Menu Items</h4>
+             
+            <form class="form-inline">
+                 <div class="form-group">
+                  <label for="itemName">Select Category:</label>
+                   <select ng-model="category"   ng-options=" category.name for category in categories">
+                        </select>
+                </div>
+                <div class="form-group">
+                  <label for="itemName">Item Name:</label>
+                  <input type="text" class="form-control" id="itemName" placeholder="Item Name" ng-model="itemName">
+                </div>
+                 <div class="form-group">
+                  <label for="itemDescription">Item Description:</label>
+                  <input type="text" class="form-control" id="itemDescription" placeholder="Item Description"  ng-model="itemDescription">
+                </div>
+                 <div class="form-group">
+                  <label for="itemPrice">Item Price:</label>
+                  <input type="text" class="form-control" id="itemPrice" placeholder="Item Price" ng-model="itemPrice">
+                </div>
+            <button type="submit" class="btn btn-default" ng-click="addItem()">Add Item</button>
+          </form>
+        </div>
+  </div>
+   
+   <script type="text/javascript">
+
+		function intilize()
+		{
+			var input = document.getElementById("inputAddress");
+			var autocomplete = new google.maps.places.Autocomplete(input);
+	
+			google.maps.event.addListener(autocomplete,"place_changed",function(){
+				
+				var place = autocomplete.getPlace();
+				var address = place.formatted_address;
+				console.log(place);
+				var lat = place.geometry.location.lat();
+				
+				var lng = place.geometry.location.lng();
+				console.log(lat + " " + lng);
+				console.log(address);
+				console.log(address);
+                                window.globals.address = {
+                                      formated_address: address,
+                                      lat: lat,
+                                      lng: lng 
+                                }
+				console.log("TheADres: ", window.globals.address);
+			})
+		}
+
+</script>
+<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDon5w_DvzHDs6IVcdcSM9VbZNSVgyNLUM&libraries=places&callback=intilize"></script>
+    </body>
+</html>

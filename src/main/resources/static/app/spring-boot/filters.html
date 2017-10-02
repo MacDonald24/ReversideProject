@@ -1,0 +1,23 @@
+﻿<div sample-menu></div>
+
+<div class="container">
+    <h1>Filters</h1>
+
+    <h2>Add custom header</h2>
+    <div class="row">
+        <div class="col-xs-12">
+            <div tabset>
+                <div tab heading="Sample">
+                    <a href ng-click="get('/api/filters/header')">Click and check network tab</a>
+                </div>
+                <div tab heading="CustomRandomHeaderFilter.java">
+                    <div show-source url="ch/minifig/tryout/boot/filter/CustomRandomHeaderFilter.java">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <h2>Authorize</h2>
+    <a href ng-click="get('/api/filters/secured')">Click and check network tab</a>
+</div>

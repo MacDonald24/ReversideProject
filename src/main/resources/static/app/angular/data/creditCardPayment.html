@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>TODO supply a title</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+  
+                <body>
+                            <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+                <!--<a class="navbar-brand" href="#">Mr D Food Delivery</a>-->
+        </div>
+        <div class="collapse navbar-collapse  navbar-right">
+            <ul class="nav navbar-nav">
+                <li><a ng-href="#/reviewOrderDetails">Review Order</a></li>        
+            </ul>
+        </div>
+    </div>
+</div>
+                          <div class="container">
+            <div class="well">
+                    <form>
+
+<div class="payment-container">
+
+       <center><div class="form-row payment-invoice">Order <strong>{{reviewOrderDetails.orderNumber}}</strong></div></center>
+
+    <center><div class="form-row payment-price rounded-shadow-box">
+       {{reviewOrderDetails.total | currency : "R"}}</div></center>
+    
+    <div class="form-row form-input form-input-name">
+        <label class="label" for="cardholderName">Name on Card</label>
+        <div class="input rounded-shadow-box">
+            <input type="text" autocomplete="off" class="form-control input-outer" name="cardholderName" value="" ng-model="cardholderName">
+        </div>
+    </div>
+
+    <div class="form-row form-input form-input-number">
+        <label class="label" for="cardNumberWithSpaces">Card Number</label>
+        <div class="input rounded-shadow-box" id="cardDetectWrapper">
+            <input type="tel" maxlength="19" id="cardNumberWithSpaces" class="form-control input-outer" novalidate="" autocomplete="off" name="cardNumber" value="" ng-model="cardNumber">
+            <span id="card-detect-visa" class="card-detect visa-logo"></span>
+            <span id="card-detect-ms" class="card-detect ms-logo"></span>
+            <span id="card-detect-amex" class="card-detect amex-logo"></span>
+        </div>
+    </div>
+
+    
+    <div class="form-row form-split">
+        <div class="form-input form-input-expires ">
+            <label class="label" for="cardExpiryMonth">Expires</label>
+            <div class="input rounded-shadow-box">
+                <input maxlength="2" type="tel" placeholder="MM" name="cardExpiryMonth" id="cardExpiryMonth" value="" pattern="\d*" novalidate="" autocorrect="off" autocomplete="cc-exp-month" ng-model="cardExpiryMonth">
+                <span class="slash">/</span>
+                <input maxlength="2" type="tel" placeholder="YY" name="cardExpiryYear" id="cardExpiryYear" value="" pattern="\d*" novalidate="" autocorrect="off" autocomplete="cc-exp-year" ng-model="cardExpiryYear" >
+                <span class="input-icon security-code"></span>
+            </div>
+        </div>
+        <div class="form-input form-input-security">
+            <label class="label" for="cardCV2">Security Code</label>
+            <div class="input rounded-shadow-box">
+                <input type="text" maxlength="3" name="cardCV2" id="cardCV2" value="" pattern="\d*" novalidate="" autocorrect="off" autocomplete="off" ng-model="cardSecurityCode">
+                <span class="input-icon security-code"></span>
+            </div>
+        </div>
+    </div>
+
+            <div class="form-row form-input form-save-card">
+            <label for="collectSaveCard" class="rounded-shadow-box">
+                <input type="checkbox" checked="checked" value="1" name="collectSaveCard" id="collectSaveCard"> 
+                <span>Save card for future payment</span>
+            </label>
+        </div>
+    
+    
+    <div class="payment-we-accept">
+        <div class="title">We accept</div>
+        <div class="card-icons"></div>
+        <div class="title title-secure">100% Secure payment</div>
+    </div>
+
+    <button id="payButton" class="btn btn-default" ng-click="payWithCard()">
+        <span id="payButtonLabel">Pay with card</span>
+    </button>
+
+</div>
+
+</form>
+                </div>
+              </div>
+     </body>
+           
+</html>
