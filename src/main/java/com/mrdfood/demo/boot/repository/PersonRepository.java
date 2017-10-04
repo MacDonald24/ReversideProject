@@ -12,7 +12,16 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional
 public interface PersonRepository extends MongoRepository<Person, String>{ 
 	 
-	    public List<Person> findAll();
+	    public void delete(Person person);
+ 
+            public List<Person> findAll();
+ 
+            public Person findOne(String id);
+ 
             public Person save(Person person);
+            
+            public Person findByEmail(String email);
+    
+            public Person findByFirstName(String firstName);
           
 }

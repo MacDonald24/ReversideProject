@@ -1,9 +1,8 @@
 package com.mrdfood.demo.boot.controller;
 
 
+import com.mrdfood.demo.boot.Services.PersonServiceImp;
 import com.mrdfood.demo.boot.model.Person;
-import com.mrdfood.demo.boot.dao.PersonDao;
-import com.mrdfood.demo.boot.repository.PersonRepository;
 import com.mrdfood.demo.boot.model.ValidationError;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,17 +19,14 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/person")
 class PersonController {
-	
-    @Autowired
-    private PersonRepository personRepository;
-    @Autowired
-    private PersonDao personDao;
-    
+
+    @Autowired 
+    private PersonServiceImp personServiceImp;
     
     @RequestMapping(value="/all" ,method = RequestMethod.GET)
     @ResponseBody
     public List<Person> getPeople() {
-       return personRepository.findAll();
+       return personServiceImp.findAll();
     }
     
     @RequestMapping(value = "/post",method = RequestMethod.POST)
@@ -40,7 +36,7 @@ class PersonController {
             return new ResponseEntity(ValidationError.of(bindingResult), HttpStatus.BAD_REQUEST);
         }
         
-		Person savedPerson = personRepository.save(person);
+		Person savedPerson = personServiceImp.create(person);
 
         return new ResponseEntity<Person>(savedPerson, HttpStatus.OK);
     }
@@ -49,7 +45,7 @@ class PersonController {
     @ResponseBody
     ResponseEntity<Person> getPersonEmail(@PathVariable @Valid String email) {
         
-      Person person = personDao.getPersonByEmail(email);
+      Person person = personServiceImp.findByEmail(email);
         
        return new ResponseEntity<Person>(person, HttpStatus.OK);
     }
@@ -58,7 +54,7 @@ class PersonController {
     @ResponseBody
      ResponseEntity<Person> getPersonId(@PathVariable @Valid String Id) {
         
-      Person person = personRepository.findOne(Id);
+      Person person = personServiceImp.findById(Id);
         
        return new ResponseEntity<Person>(person, HttpStatus.OK);
     }
@@ -69,8 +65,27 @@ class PersonController {
         if (bindingResult.hasErrors()) {
             return new ResponseEntity(ValidationError.of(bindingResult), HttpStatus.BAD_REQUEST);
         }
-                Person editedPerson = personDao.editProfile(person);
+                Person editedPerson = personServiceImp.update(person);
 
         return new ResponseEntity<Person>(editedPerson, HttpStatus.OK);
     }
+    
+    @RequestMapping(value = "/person/{firstName}", method = RequestMethod.GET)
+    @ResponseBody
+     ResponseEntity<Person> getPersonByFirstName(@PathVariable @Valid String firstName) {
+        
+      Person savedPerson = personServiceImp.findByFirstName(firstName);
+        
+       return new ResponseEntity<Person>(savedPerson, HttpStatus.OK);
+    }
+     
+     @RequestMapping(value = "/remove/{id}", method = RequestMethod.DELETE)
+    @ResponseBody
+     ResponseEntity<Person> deletePerson(@PathVariable @Valid String id) {
+        
+      Person savedPerson = personServiceImp.delete(id);
+        
+       return new ResponseEntity<Person>(savedPerson, HttpStatus.OK);
+    }
+    
 }

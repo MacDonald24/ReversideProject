@@ -5,6 +5,7 @@
  */
 package com.mrdfood.demo.boot.model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -17,7 +18,8 @@ import org.springframework.data.mongodb.core.mapping.Field;
  * @author User
  */
 @Document
-public class Category {
+public class Category implements Serializable {
+          private static final long serialVersionUID = -723583058586873479L;
     
     @Id
     private String categoryId;

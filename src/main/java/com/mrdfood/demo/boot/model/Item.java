@@ -15,7 +15,7 @@ import org.springframework.data.mongodb.core.mapping.Field;
  */
 @Document
 public class Item {
-    
+         private static final long serialVersionUID = -723583058586873479L;
     @Id
     @Field
     private String itemId;

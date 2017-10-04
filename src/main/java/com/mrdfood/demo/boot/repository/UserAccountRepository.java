@@ -5,26 +5,23 @@
  */
 package com.mrdfood.demo.boot.repository;
 
-import com.mrdfood.demo.boot.model.Person;
 import com.mrdfood.demo.boot.model.UserAccount;
 import org.springframework.data.mongodb.repository.MongoRepository;
-import org.springframework.data.mongodb.repository.Query;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  *
  * @author User
  */
 @Repository
+@Transactional
 public interface UserAccountRepository extends MongoRepository<UserAccount, String>  {
     
     
-    @Query(value="{ 'username' : ?0 }", fields="{ 'username' : 1}")
-    public UserAccount userAccount(String username);
-    UserAccount save(UserAccount account);
-    public Person getByEmail(String email); 
-   
-    
-    
-    
+    public UserAccount findByUsername(String username);
+    public UserAccount save(UserAccount account);
+    public UserAccount findByUsernameAndPassword(String username, String password);
+    public UserAccount findOne(String id);
+
 }

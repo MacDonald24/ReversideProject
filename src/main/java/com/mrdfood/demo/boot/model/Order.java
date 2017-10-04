@@ -14,7 +14,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
  */
 @Document
 public class Order {
-    
+                  private static final long serialVersionUID = -723583058586873479L;
     private String id;
     private String orderNum;
     private String personId;

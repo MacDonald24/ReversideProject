@@ -5,6 +5,7 @@
  */
 package com.mrdfood.demo.boot.model;
 
+import java.io.Serializable;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
@@ -14,8 +15,8 @@ import org.springframework.data.mongodb.core.mapping.Field;
  * @author User
  */
 @Document
-public class DriverRequest {
-    
+public class DriverRequest implements Serializable {
+        private static final long serialVersionUID = -723583058586873479L;
     @Id
     @Field
     private String driverReq;

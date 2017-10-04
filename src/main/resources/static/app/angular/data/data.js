@@ -12,7 +12,7 @@ angular.module('SampleApplication.Angular.Data', ['ngResource','angular-storage'
        console.log("--------------------");
         console.log("Logged In Account");
        console.log($scope.loggedInAccount);
-       
+     
         if($scope.loggedInAccount !== null) 
         {
             $http.get('/api/person/personId/'+ $scope.loggedInAccount.personId,headerDetails).then(function(res)
@@ -30,11 +30,15 @@ angular.module('SampleApplication.Angular.Data', ['ngResource','angular-storage'
             {
                $scope.searchAddress = window.globals.address;
                   console.log($scope.searchAddress);
-               
+                   console.log(window.globals.address);
                if($scope.searchAddress !== null)
                {
-                   store.set("searchAddress",$scope.searchAddress);
-                   $location.path("/viewRestaurant");
+                   if(window.globals.address.formated_address !== null)
+                   {
+                       store.set("searchAddress",$scope.searchAddress);
+                        $location.path("/viewRestaurant");
+                   }
+                   
                }
                
             };
@@ -52,6 +56,13 @@ angular.module('SampleApplication.Angular.Data', ['ngResource','angular-storage'
             } ;
         
                   console.log(window.globals.address); 
+                  
+          
+            $http.get('api/person/person/'+ "Oarabile",headerDetails).then(function(res)
+            {	
+                console.log(res.data);
+                        
+            });
 
        }])
 	.controller('RegisterController', ['$scope','$http','$location', function ($scope, $http ,$location) {
@@ -234,22 +245,98 @@ angular.module('SampleApplication.Angular.Data', ['ngResource','angular-storage'
                 var firstName = splitFullName[0];
                 var lastName = splitFullName[1];
              
-            var partnerPerson = {
-                        "email": partnerRequest.emailAddres,
-                        "firstName": firstName,
-                        "lastName": lastName ,
-                        "mobileNumber": partnerRequest.phoneNumber,
-                        "password": randomPassword
-                   };
+                var partnerPerson = {
+                            "email": partnerRequest.emailAddres,
+                            "firstName": firstName,
+                            "lastName": lastName ,
+                            "mobileNumber": partnerRequest.phoneNumber,
+                            "password": randomPassword
+                       };
            
             console.log(partnerPerson);
             
         $http.post('/api/userAccount/partner/post',partnerPerson,headerDetails ).then(function(res)
         {
-            
-            console.log($scope.partnerAccount );               
+                       
         });
             
+        };
+        
+       $scope.deletePerson = function(person) {
+         console.log(person);
+     
+            $http.delete('/api/person/remove/' + person.id,headerDetails ).then(function(res)
+            {
+                console.log(res);               
+            });
+        };
+        
+        $scope.deleteUserAccount = function(userAccount) {
+         console.log(userAccount);
+     
+            $http.delete('/api/userAccount/remove/' + userAccount.accountId,headerDetails ).then(function(res)
+            {
+                console.log(res);
+                
+                if(res.status === 200 && res.statusText === "OK")
+                {
+                            alert("Delete Username " + res.data.username);
+                }
+            });
+        };
+        $scope.deletePartnerRequest = function(partnerReq)
+        {
+            //DELETE /api/partnerRequest/remove/{id}
+            console.log(partnerReq);
+             $http.delete('/api/partnerRequest/remove/' + partnerReq.partnerRequestId,headerDetails ).then(function(res)
+            {
+                
+                if(res.status === 200 && res.statusText === "OK")
+                {
+                            alert("Delete PartnerRequesr " + res.data.fullName);
+                }
+            });
+            
+        };
+        
+        $scope.deleteDriverRequest = function(driverRequest)
+        {
+            
+            $http.delete('/api/driverRequest/remove/' + driverRequest.driverReq,headerDetails ).then(function(res)
+            {
+                
+                if(res.status === 200 && res.statusText === "OK")
+                {
+                            alert("Delete PartnerRequesr " + res.data.fullName);
+                }
+            });
+            
+        };
+        
+        $scope.getdriverRequest = function(driverRequest)
+        {
+              console.log(driverRequest);
+             var randomPassword = Math.floor(Math.random() * 99999999);
+                var splitFullName   = driverRequest.fullName.split(" ");
+                var firstName = splitFullName[0];
+                var lastName = splitFullName[1];
+             
+                var driverPerson = {
+                            "email": driverRequest.emailAddress,
+                            "firstName": firstName,
+                            "lastName": lastName ,
+                            "mobileNumber": driverRequest.phoneNumber,
+                            "password": randomPassword
+                       };
+           
+            console.log(driverPerson);
+            $http.post('/api/userAccount/driver/post',driverPerson,headerDetails ).then(function(res)
+            {
+                         if(res.status === 200 && res.statusText === "OK")
+                    {
+                                alert("Driver Account " + res.data.username);
+                    }   
+            });
         };
             
   }])	

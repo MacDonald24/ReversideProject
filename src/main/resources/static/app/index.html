@@ -1,5 +1,5 @@
 <style>
-#restaurantPartner{
+/*#restaurantPartner{
   position: relative;
   top: 700px;
   left: 400px;
@@ -8,8 +8,61 @@
   position: relative;
   top: 700px;
   left: 300px;
+}*/
+body {
+  background-image:url('content/themes/base/images/homePage2.jpg');
+    -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
+input, textarea {
+    font-family: Rubik,sans-serif,'San Francisco',Helvetica,Arial!important;
+    color: #131313;
+}
+.container {
+    width: auto;
+    margin: 0 auto;
+    position: relative;
+    z-index: 3;
 }
 
+.title-big .title {
+    color: #ffe530;
+    text-shadow: 1px 1px 0 rgba(19,19,19,.8), 1px -1px 0 rgba(19,19,19,.8), -1px 1px 0 rgba(19,19,19,.8), -1px -1px 0 rgba(19,19,19,.8);
+    font-size: 32px;
+    width: 285px;
+    margin: 0 auto;
+    text-align: center;
+    line-height: 1.2em;
+    font-weight: 700;
+    letter-spacing: 1px;
+}
+#footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  /* Set the fixed height of the footer here */
+  height: 280px;
+  background: 
+  /* color overlay */ 
+    linear-gradient(
+      rgba(240, 212, 0, 0.45), 
+      rgba(0, 0, 0, 0.45)
+    ),
+    /* image to overlay */
+    url(http://images.cdn.fotopedia.com/_avPIZmqM3w-7z161LH_268-hd.jpg);
+}
+
+#txtSearchRestaurant{
+    height : 80px; 
+    width : 380px;
+}
+#chow{
+     height : 80px; 
+    width : 380px;
+    background-color: #FFE530;
+}
 </style>
 
 ﻿<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
@@ -62,9 +115,9 @@
 </div>
 
 	<!-- #wrapper -->
-	<div id="wrapper" style="background-image:url('content/themes/base/images/homePage.jpg');">	
+	<div id="wrapper">	
 		<!-- .container -->
-		<div class="container">
+                    <div class="container">
                         <div class="jquery-script-ads">
                                 <script type="text/javascript"><!--
                                 google_ad_client = "ca-pub-2783044520727903";
@@ -75,31 +128,35 @@
                                 //-->
                                 </script>
                         </div>
-                    
-                    <div class="container">
-                     
-                        <form>
-                          <div class="form-group">
-                          
-                            <div class="col-xs-4">
-                                <input class="form-control" id="txtSearchRestaurant" type="text" placeholder="Enter your street address">
-                            </div>
-                            <div class="col-xs-4">
-                               <button type="button" class="btn btn-warning btn-lg " ng-model="searchAddress" ng-click="getChowNow()">GET CHOW DELIVERED NOW</button>       
-                             </div>
-                          </div>
-                        </form>
+                        <div class="container">
+                                <img src="content/themes/base/images/logoImage.png"  height="129" width="150"/>
+                                <div class="title-big">
+                                    <h1 class="title">SA'S FAVOURITE FOOD DELIVERY</h1>
+                                </div>
+                        </div>
+                        <br>
+                        <br>
+                        <div class="container">
+                                <div class="form-group">
+                                    <div class="col-sm-4">
+                                         <input class="form-control" id="txtSearchRestaurant" type="text" placeholder="Enter your street address">
+                                    </div>
+                                </div>
+                        </div>
+                        <br>
+                        <br>
+                         <div class="container">        
+                                 <div class="form-group">
+                                    <div class="col-sm-4">
+                                        <button id="chow" type="button" class="btn btn-default" ng-model="searchAddress" ng-click="getChowNow()"><b>GET CHOW DELIVERED NOW</b></button>                                     
+                                    </div>
+                                </div>
+                           
+                        </div>
                     </div>
-                     <div class="container">
-                     
-                    
-                   <button  id="driverPartner" type="button" class="btn btn-success btn-lg " ng-click="becomeDriver()">BECOME A DRIVER</button>
-                   <button id="restaurantPartner" type="button" class="btn btn-success btn-lg " ng-click="becomePartner()">BECOME A PARTNER</button>
-		</div>
-		<!-- /.container -->
-	</div>
 	<!-- /#wrapper -->
-
+        </div>
+        
 	<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
 	<!-- Include all compiled plugins (below), or include individual files as needed -->
@@ -157,4 +214,37 @@
 
 </script>
 <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDon5w_DvzHDs6IVcdcSM9VbZNSVgyNLUM&libraries=places&callback=intilize"></script>
+
+<footer class="navbar-default navbar-fixed-bottom">
+  <div class="container-fluid">
+      <div id="footer">
+    <div class="container">
+        <div class="row">
+             <center><h3 class="footertext">About Us:</h3> </center>
+            <br>
+              <div class="col-sm-6">
+                <center>
+                  <img src="content/themes/base/images/driver.jpg"  height="75" width="75" class="img-circle" alt="the-brains">
+                  <br>
+                  <button  id="driverPartner" type="button" class="btn btn-primary" ng-click="becomeDriver()"><b>BECOME A DRIVER</b></button>
+                </center>
+              </div>
+              <div class="col-sm-6">
+                <center>
+                  <img src="content/themes/base/images/partner.jpg"  height="75" width="75"  class="img-circle" alt="...">
+                  <br>
+                  <button id="restaurantPartner" type="button" class="btn btn-primary" ng-click="becomePartner()"><b>BECOME A PARTNER</b></button>
+                </center>
+              </div>       
+            </div>
+            <div class="row">
+            <p><center><a href="#">Contact Stuff Here</a> <p class="footertext">Copyright 2014</p></center></p>
+             </div>
+    </div>
+</div>
+  </div>
+</footer>
+
+
+
 </body>

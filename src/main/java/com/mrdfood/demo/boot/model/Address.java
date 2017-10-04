@@ -10,8 +10,7 @@ package com.mrdfood.demo.boot.model;
  * @author User
  */
 public class Address {
-    
-    
+                  private static final long serialVersionUID = -723583058586873479L;
     private String streetName;
     private String city;
     private String zipCode;
