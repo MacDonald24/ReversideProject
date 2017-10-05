@@ -15,6 +15,7 @@ com\mrdfood\demo\boot\dto\LoginDTO.class
 com\mrdfood\demo\boot\repository\UserAccountRepository.class
 com\mrdfood\demo\boot\Services\RestaurnatService.class
 com\mrdfood\demo\boot\Services\UserAccountService.class
+com\mrdfood\demo\boot\Services\CategoryServiceImp.class
 com\mrdfood\demo\boot\Services\UserAccountServiceImp.class
 com\mrdfood\demo\boot\util\BadRequestException.class
 com\mrdfood\demo\boot\controller\ShoppingCartController.class
@@ -40,6 +41,7 @@ com\mrdfood\demo\boot\controller\SourceController.class
 com\mrdfood\demo\boot\repository\PaymentRepository.class
 com\mrdfood\demo\boot\Services\PartnerService.class
 com\mrdfood\demo\boot\model\UserAccount.class
+com\mrdfood\demo\boot\Services\RestaurantService.class
 com\mrdfood\demo\boot\model\Order.class
 com\mrdfood\demo\boot\Services\ItemService.class
 com\mrdfood\demo\boot\Services\PersonService.class

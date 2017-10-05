@@ -6,20 +6,19 @@
 package com.mrdfood.demo.boot.controller;
 
 
-import com.mrdfood.demo.boot.Services.ItemService;
+import com.mrdfood.demo.boot.Services.CategoryServiceImp;
+import com.mrdfood.demo.boot.Services.ItemServiceImpl;
+import com.mrdfood.demo.boot.Services.RestaurantServiceImp;
 import com.mrdfood.demo.boot.model.Category;
 import com.mrdfood.demo.boot.model.Item;
 import com.mrdfood.demo.boot.model.Restaurant;
 import com.mrdfood.demo.boot.model.ValidationError;
-import com.mrdfood.demo.boot.repository.CategoryRepository;
-import com.mrdfood.demo.boot.repository.ItemRepository;
-import com.mrdfood.demo.boot.repository.RestaurantRepository;
+
+
 import java.util.List;
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.mongodb.core.MongoTemplate;
-import org.springframework.data.mongodb.core.query.Criteria;
-import org.springframework.data.mongodb.core.query.Query;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
@@ -39,16 +38,12 @@ import org.springframework.web.bind.annotation.RestController;
 public class RestaurantController {
    
     @Autowired
-    RestaurantRepository restaurantRepository;
+    RestaurantServiceImp restaurantServiceImp;
     @Autowired
-    CategoryRepository categoryRepository;
+    ItemServiceImpl itemServiceImpl;
     @Autowired
-    MongoTemplate mongoOperation;
-    @Autowired
-    ItemRepository itemRepository;
-    
-    @Autowired
-    ItemService itemService;
+    CategoryServiceImp categoryServiceImp;
+   
     
     
     @RequestMapping(value = "/post",method = RequestMethod.POST)
@@ -57,8 +52,7 @@ public class RestaurantController {
         if (bindingResult.hasErrors()) {
             return new ResponseEntity(ValidationError.of(bindingResult), HttpStatus.BAD_REQUEST);
         }
-        
-		Restaurant savedRestaurant = restaurantRepository.save(restaurant);
+		Restaurant savedRestaurant =restaurantServiceImp.create(restaurant);
                 
         return new ResponseEntity<>(savedRestaurant, HttpStatus.OK);
     }
@@ -67,31 +61,32 @@ public class RestaurantController {
     @RequestMapping(value="/all" ,method = RequestMethod.GET)
     @ResponseBody
     public List<Restaurant> getRestaurants() {
-       return restaurantRepository.findAll();
+       return restaurantServiceImp.findAll();
     }
     @RequestMapping(value="items/all" ,method = RequestMethod.GET)
     @ResponseBody
     public List<Item> getItems() {
-       return itemRepository.findAll();
+       return itemServiceImpl.findAll();
     }
     
     
     @RequestMapping(value="/menu/categories/all" ,method = RequestMethod.GET)
     @ResponseBody
     public List<Category> getCategories() {
-       return categoryRepository.findAll();
+       return categoryServiceImp.findAll();
     }
     
     @RequestMapping(value = "/get/{accountId}", method = RequestMethod.GET)
     @ResponseBody
     ResponseEntity<Restaurant> getUserAccount(@PathVariable String accountId) {
         
-            Query query = new Query(Criteria.where("accountId").is(accountId));
+        /*Query query = new Query(Criteria.where("accountId").is(accountId));
             
-            Restaurant restuarant = mongoOperation.findOne(query, Restaurant.class,"restaurant");
+        Restaurant restuarant = mongoOperation.findOne(query, Restaurant.class,"restaurant");*/
+         
+        Restaurant savedRestuarant = restaurantServiceImp.findByAccountId(accountId);
             
-            
-       return new ResponseEntity<>(restuarant, HttpStatus.OK);
+       return new ResponseEntity<>(savedRestuarant, HttpStatus.OK);
     } 
     
     @RequestMapping(value = "/menu/category",method = RequestMethod.POST)
@@ -100,39 +95,30 @@ public class RestaurantController {
         if (bindingResult.hasErrors()) {
             return new ResponseEntity(ValidationError.of(bindingResult), HttpStatus.BAD_REQUEST);
         }
-        Category savedCategory = null;
-            if(category != null)
-            {
-              savedCategory = categoryRepository.save(category); 
-            }
-		
+	
+        Category savedCategory = categoryServiceImp.create(category);
+                
         return new ResponseEntity<>(savedCategory, HttpStatus.OK);
     }
     
     @RequestMapping(value = "/category/{categoryId}", method = RequestMethod.GET)
     @ResponseBody
-    ResponseEntity<Category>  getRestCategories(@PathVariable String categoryId) {
+    ResponseEntity<Category> getRestCategory(@PathVariable String categoryId) {
  
-             Query query = new Query(Criteria.where("_id").is(categoryId));
-            Category category = mongoOperation.findOne(query,Category.class,"category");
-
+            /*Query query = new Query(Criteria.where("_id").is(categoryId));
+            Category category = mongoOperation.findOne(query,Category.class,"category");*/
             
-         return new ResponseEntity< >(category, HttpStatus.OK);
+            Category savedCategory = categoryServiceImp.findById(categoryId);
+            
+         return new ResponseEntity< >(savedCategory, HttpStatus.OK);
     }
     
     @RequestMapping(value = "/addCategories/{accountId}", method = RequestMethod.POST)
     @ResponseBody
     ResponseEntity<Restaurant> addCategoriesToRest(@PathVariable String accountId,@RequestBody @Valid Category category) {
-        
-            Query query = new Query(Criteria.where("accountId").is(accountId));
-            
-            Restaurant restuarant = mongoOperation.findOne(query, Restaurant.class,"restaurant");
-            
-            restuarant.addCategories(category);
-            
-            mongoOperation.save(restuarant);
-            
-            return new ResponseEntity<>(restuarant, HttpStatus.OK);
+
+            Restaurant savedRestaurant = restaurantServiceImp.addCateogory(accountId, category);
+            return new ResponseEntity<>(savedRestaurant, HttpStatus.OK);
     } 
     
     @RequestMapping(value = "/category/item",method = RequestMethod.POST)
@@ -141,50 +127,52 @@ public class RestaurantController {
         if (bindingResult.hasErrors()) {
             return new ResponseEntity(ValidationError.of(bindingResult), HttpStatus.BAD_REQUEST);
         }
-                itemRepository.save(item); 	
+                itemServiceImpl.create(item); 	
         return new ResponseEntity<>(item, HttpStatus.OK);
     }
     @RequestMapping(value = "/category/item/{itemId}",method = RequestMethod.GET)
     @ResponseBody
     ResponseEntity<Item> getItemById(@PathVariable String itemId) throws Exception {
-       Query query = new Query(Criteria.where("_id").is(itemId));
-       Item item = mongoOperation.findOne(query, Item.class, "item");
-       return new ResponseEntity<>(item, HttpStatus.OK);
+       //Query query = new Query(Criteria.where("_id").is(itemId));mongoOperation.findOne(query, Item.class, "item");
+       Item savedItem = itemServiceImpl.findById(itemId);
+       return new ResponseEntity<>(savedItem , HttpStatus.OK);
     }
 
     @RequestMapping(value = "/addItems/{categoryId}",method = RequestMethod.POST)
     @ResponseBody
     ResponseEntity<Category> addItems(@PathVariable String categoryId,@RequestBody @Valid Item item) throws Exception {
-            Query query = new Query(Criteria.where("_id").is(categoryId));
+           /* Query query = new Query(Criteria.where("_id").is(categoryId));
             
             Category category = mongoOperation.findOne(query, Category.class,"category");
             
             category.addCategories(item);
-            categoryRepository.save(category); 	
+            categoryRepository.save(category); */
+           
+           Category category = categoryServiceImp.addItem(categoryId, item);
             
         return new ResponseEntity<>(category, HttpStatus.OK);
     }
     
-    /*@RequestMapping(value = "/category/item/{categoryId}",method = RequestMethod.GET)
-    @ResponseBody
-    ResponseEntity<Item> retrieveItemByCategoryId(@PathVariable String categoryId) throws Exception {
-      	
-        Item item = itemService.getItemByCategoryId(categoryId);
-        
-        return new ResponseEntity<>(item, HttpStatus.OK);
-    }*/
     
     @RequestMapping(value="/menu/items/{categoryId}" ,method = RequestMethod.GET)
     @ResponseBody
     public List<Item> getItemsByCategoryId(@PathVariable String categoryId) {
        
 
-        Query query = new Query(Criteria.where("categoryId").is(categoryId));
+        /* Query query = new Query(Criteria.where("categoryId").is(categoryId));
         
-        List<Item> items = mongoOperation.find(query, Item.class, "item");
-                
-        return items;
+        List<Item> items = mongoOperation.find(query, Item.class, "item");*/
+         
+        List<Item> savedItems = itemServiceImpl.findItems(categoryId);
+        return savedItems;
     }
-    
+     @RequestMapping(value="/remove/{restaurantId}" ,method = RequestMethod.DELETE)
+    @ResponseBody
+    public Restaurant removeRestaurant(@PathVariable String restaurantId) {
+       
+        Restaurant delectedRestaurant = restaurantServiceImp.delete(restaurantId);
+        
+        return delectedRestaurant;
+    }
     
 }

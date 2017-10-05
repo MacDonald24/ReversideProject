@@ -338,6 +338,19 @@ angular.module('SampleApplication.Angular.Data', ['ngResource','angular-storage'
                     }   
             });
         };
+        
+        $scope.deleteRestaurant = function(rest)
+        {
+            console.log(rest);
+            //DELETE /api/restaurant/remove/{restaurantId}
+             $http.delete('/api/restaurant/remove/'+rest.restaurantId,headerDetails ).then(function(res)
+            {
+                         if(res.status === 200 && res.statusText === "OK")
+                    {
+                                console.log(res.data);
+                    }   
+            });
+        };
             
   }])	
    .controller("PartnerController", ['$scope','$http','$location','store', function ($scope, $http,$location,store) { 
@@ -430,6 +443,7 @@ angular.module('SampleApplication.Angular.Data', ['ngResource','angular-storage'
                           
                     $http.get('/api/restaurant/get/'+ store.get("account").accountId ,headerDetails).then(function(res)
                     {
+                        
                          var category = {
                         "name": $scope.categoryName,
                         "restaurantId":   res.data.restaurantId
@@ -437,14 +451,14 @@ angular.module('SampleApplication.Angular.Data', ['ngResource','angular-storage'
                             store.set("restId",res.data.restaurantId);
                         $http.post('/api/restaurant/menu/category',category).then(function(res)
                         {
-                         //console.log(res.data);
+                               console.log(store.get("account").accountId)
                             $http.post('/api/restaurant/addCategories/'+ store.get("account").accountId,res.data).then(function(res)
                            {
-                         
+                                  console.log(res.data);
                            });
                         });
                      });
-                    };
+        };
 
          $scope.addItem= function()
         {
@@ -614,6 +628,7 @@ angular.module('SampleApplication.Angular.Data', ['ngResource','angular-storage'
           
           $http.get('/api/restaurant/all').then(function(res)
            {
+                console.log(res)
                $scope.restaurants = res.data;
                                   
            });

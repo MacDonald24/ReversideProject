@@ -18,6 +18,11 @@ import java.util.List;
 public interface ItemService {
 
     public List<Item> findAll();
-    public Item find(String itemId);
+    public Item create(Item item);
+    public Item delete(String id);
+    public Item update(Item item);
+    public List<String> findByCategoryId(String categoryId);
+    public Item findById(String id);
+    public List<Item> findItems(String categoryId);
  
 }

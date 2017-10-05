@@ -17,6 +17,8 @@ public interface ItemRepository extends MongoRepository<Item, String> {
 
     
     public Item findOne(String id);
-    public List<String> findByCategoryId(String categoryId);
+    //public List<String> findByCategoryId(String categoryId);
+    public List<Item> findByCategoryId(String categoryId);
+    public Item save(Item item);
     
 }

@@ -48,7 +48,7 @@ public class PartnerRequestController {
     
      @RequestMapping(value = "/remove/{id}",method = RequestMethod.DELETE)
     @ResponseBody
-    ResponseEntity<PartnerRequest> save(@PathVariable @Valid String id) throws Exception {
+    ResponseEntity<PartnerRequest> deletePartnerRequest(@PathVariable @Valid String id) throws Exception {
       
          PartnerRequest savePartnerRequest = partnerServiceImp.delete(id);
            

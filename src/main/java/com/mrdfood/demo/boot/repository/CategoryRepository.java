@@ -19,8 +19,5 @@ import org.springframework.stereotype.Repository;
 public interface CategoryRepository extends MongoRepository<Category, String> {
     
     public Category save(Category category);
-    @Query("{ 'restaurantId' :  ?0 }")
-    public List<Category> findUsersByRestaurantId(String restId);
-    @Query("{ 'name' :  ?0 }")
-    public  Category findCategoryByName(String categoryName);
+    public  Category findByName(String categoryName);
 }

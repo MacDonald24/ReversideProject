@@ -5,6 +5,8 @@
  */
 package com.mrdfood.demo.boot.model;
 
+import java.util.List;
+
 /**
  *
  * @author User
@@ -15,6 +17,7 @@ public class Address {
     private String city;
     private String zipCode;
     private String province;
+    private List<String> ordinates;
 
     public Address() {
     }
@@ -56,6 +59,14 @@ public class Address {
 
     public void setProvince(String province) {
         this.province = province;
+    }
+
+    public List<String> getOrdinates() {
+        return ordinates;
+    }
+
+    public void setOrdinates(List<String> ordinates) {
+        this.ordinates = ordinates;
     }
    
     
