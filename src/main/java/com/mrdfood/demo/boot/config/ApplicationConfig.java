@@ -16,7 +16,7 @@ public class ApplicationConfig {
 	     
 	    public @Bean
 	    MongoDbFactory mongoDbFactory() throws Exception {
-	        MongoClient mongoClient = new MongoClient("localhost",27017);
+	        MongoClient mongoClient = new MongoClient("localhost",28540);
 	        return new SimpleMongoDbFactory(mongoClient, "MrDFood");
 	    }
 	 
